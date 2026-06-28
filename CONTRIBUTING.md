@@ -46,4 +46,4 @@ docs/                — User documentation
 
 ## License
 
-By contributing, you agree your contributions will be licensed under Apache-2.0.
+By contributing, you agree your contributions will be licensed under MIT.

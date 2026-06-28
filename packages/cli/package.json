@@ -19,5 +19,5 @@
     "@types/node": "^22.15.30",
     "typescript": "^5.8.3"
   },
-  "license": "Apache-2.0"
+  "license": "MIT"
 }

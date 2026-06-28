@@ -258,7 +258,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welcome — especially new telemetry
 
 ## License
 
-Apache-2.0 — see [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE)
 
 ---
 
