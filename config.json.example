@@ -1,0 +1,45 @@
+{
+  "tenantMode": true,
+  "defaultTenant": "default",
+  "features": {
+    "openapi": true,
+    "postman": true,
+    "graphql": true,
+    "logs": true,
+    "git": true,
+    "observability": true,
+    "workflow_inference": true,
+    "impact_analysis": true,
+    "telemetry": true
+  },
+  "telemetry": {
+    "enabled": true,
+    "defaultWindow": "24h",
+    "providers": [
+      {
+        "id": "mock-shopflow",
+        "type": "mock",
+        "enabled": true,
+        "fixture": "./fixtures/telemetry/checkout-errors.json"
+      },
+      {
+        "id": "payment-logs",
+        "type": "logfile",
+        "enabled": false,
+        "path": "./fixtures/logs/payment-access.log",
+        "parser": "json"
+      },
+      {
+        "id": "local-otel",
+        "type": "otlp",
+        "enabled": false,
+        "endpoint": "http://localhost:4318"
+      }
+    ]
+  },
+  "telemetryProviders": {
+    "aws-cloudwatch": { "enabled": false },
+    "azure-monitor": { "enabled": false }
+  },
+  "tenants": {}
+}

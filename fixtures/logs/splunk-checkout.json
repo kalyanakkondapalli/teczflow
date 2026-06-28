@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "timestamp": "2026-06-28T10:15:00Z",
+      "method": "POST",
+      "path": "/payments",
+      "status": 400,
+      "message": "missing required field: billingAddress",
+      "requestId": "splunk-req-001",
+      "service": "payment-service"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "info": {
+    "name": "ShopFlow Checkout",
+    "description": "Postman collection for ShopFlow checkout workflow"
+  },
+  "item": [
+    {
+      "name": "Create Cart",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/cart",
+        "description": "Create shopping cart"
+      }
+    },
+    {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/orders",
+        "description": "Create order from cart"
+      }
+    },
+    {
+      "name": "Process Payment",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/payments",
+        "description": "Process payment"
+      }
+    },
+    {
+      "name": "Reserve Inventory",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/inventory/reserve"
+      }
+    },
+    {
+      "name": "Create Shipment",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/shipping"
+      }
+    },
+    {
+      "name": "Generate Invoice",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/invoices"
+      }
+    },
+    {
+      "name": "Refund Payment",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/payments/{paymentId}/refund"
+      }
+    }
+  ]
+}

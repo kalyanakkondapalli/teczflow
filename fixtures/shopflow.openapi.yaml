@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  title: ShopFlow API
+  description: E-commerce API for cart, checkout, payment, inventory, shipping, invoice, and notifications
+  version: 1.0.0
+servers:
+  - url: https://api.shopflow.example.com/v1
+tags:
+  - name: cart
+    description: Shopping cart operations
+  - name: checkout
+    description: Checkout workflow
+  - name: payment
+    description: Payment processing
+  - name: inventory
+    description: Inventory management
+  - name: shipping
+    description: Shipping and fulfillment
+  - name: invoice
+    description: Billing and invoices
+  - name: notification
+    description: Customer notifications
+  - name: order
+    description: Order management
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Cart:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: string
+              quantity:
+                type: integer
+    PaymentRequest:
+      type: object
+      required: [orderId, amount, billingAddress]
+      properties:
+        orderId:
+          type: string
+        amount:
+          type: number
+        billingAddress:
+          type: string
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+security:
+  - bearerAuth: []
+paths:
+  /cart:
+    post:
+      tags: [cart, checkout]
+      operationId: createCart
+      summary: Create shopping cart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+      responses:
+        '201':
+          description: Cart created
+  /cart/{cartId}/items:
+    post:
+      tags: [cart]
+      operationId: addCartItem
+      summary: Add item to cart
+      responses:
+        '200':
+          description: Item added
+  /orders:
+    post:
+      tags: [order, checkout]
+      operationId: createOrder
+      summary: Create order from cart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [cartId]
+              properties:
+                cartId:
+                  type: string
+      responses:
+        '201':
+          description: Order created
+  /orders/{orderId}:
+    get:
+      tags: [order]
+      operationId: getOrder
+      summary: Get order by ID
+      responses:
+        '200':
+          description: Order details
+  /payments:
+    post:
+      tags: [payment, checkout]
+      operationId: processPayment
+      summary: Process payment for order
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '200':
+          description: Payment successful
+        '400':
+          description: Bad request - missing fields
+        '401':
+          description: Unauthorized
+  /payments/{paymentId}/refund:
+    post:
+      tags: [payment]
+      operationId: refundPayment
+      summary: Refund a payment
+      responses:
+        '200':
+          description: Refund processed
+  /inventory/reserve:
+    post:
+      tags: [inventory, checkout]
+      operationId: reserveInventory
+      summary: Reserve inventory for order
+      responses:
+        '200':
+          description: Inventory reserved
+        '409':
+          description: Insufficient inventory
+  /shipping:
+    post:
+      tags: [shipping, checkout]
+      operationId: createShipment
+      summary: Create shipment for order
+      responses:
+        '201':
+          description: Shipment created
+  /invoices:
+    post:
+      tags: [invoice, checkout]
+      operationId: createInvoice
+      summary: Generate invoice for order
+      responses:
+        '201':
+          description: Invoice created
+    get:
+      tags: [invoice]
+      operationId: listInvoices
+      summary: List invoices
+      responses:
+        '200':
+          description: Invoice list
+  /notifications/order-complete:
+    post:
+      tags: [notification, checkout]
+      operationId: notifyOrderComplete
+      summary: Send order completion notification
+      responses:
+        '202':
+          description: Notification queued

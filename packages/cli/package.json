@@ -1,0 +1,23 @@
+{
+  "name": "@teczflow/cli",
+  "version": "1.0.0",
+  "description": "TeczFlow CLI — API intelligence from the command line",
+  "type": "module",
+  "bin": {
+    "teczflow": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@teczflow/core": "*",
+    "commander": "^14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "typescript": "^5.8.3"
+  },
+  "license": "Apache-2.0"
+}
