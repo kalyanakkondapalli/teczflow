@@ -1,6 +1,17 @@
 # TeczFlow — AI API Intelligence Platform
 
-**By [MyTecz](https://github.com/mytecz)** · Open Source · MCP Compatible · SaaS Ready
+**By [MyTecz](https://www.npmjs.com/~mytecz)** · Open Source · MCP Compatible · SaaS Ready
+
+[![GitHub](https://img.shields.io/github/stars/kalyanakkondapalli/teczflow?style=social)](https://github.com/kalyanakkondapalli/teczflow)
+[![npm](https://img.shields.io/npm/v/@mytecz/teczflow-cli?label=cli)](https://www.npmjs.com/package/@mytecz/teczflow-cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+| | Links |
+|---|---|
+| **GitHub** | https://github.com/kalyanakkondapalli/teczflow |
+| **npm CLI** | `@mytecz/teczflow-cli` |
+| **npm MCP** | `@mytecz/teczflow-mcp-server` |
+| **npm Core** | `@mytecz/teczflow-core` |
 
 TeczFlow turns any API ecosystem into a **reasoning engine** for Claude and other MCP clients. It does not just call APIs — it **understands** them.
 

@@ -10,7 +10,15 @@ TeczFlow is published under the **@mytecz** scope (your npm account).
 | `@mytecz/teczflow-cli` | CLI | `teczflow` |
 | `@mytecz/teczflow-mcp-server` | MCP server | `teczflow-mcp` |
 
-## First-time publish
+## Publish via GitHub Actions (recommended)
+
+1. Create an npm **Granular Access Token** with **Publish** permission at https://www.npmjs.com/settings/mytecz/tokens
+2. Add it to GitHub: **Repo → Settings → Secrets → Actions → `NPM_TOKEN`**
+3. Run workflow: **Actions → Publish to npm → Run workflow**
+
+Or create a GitHub Release to trigger publish automatically.
+
+## First-time publish (local with 2FA)
 
 1. Login (done):
    ```bash

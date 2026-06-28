@@ -29,7 +29,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kalyanakkondapalli/teczflow.git"
+    "url": "git+https://github.com/kalyanakkondapalli/teczflow.git",
+    "directory": "packages/cli"
   },
   "bugs": {
     "url": "https://github.com/kalyanakkondapalli/teczflow/issues"
