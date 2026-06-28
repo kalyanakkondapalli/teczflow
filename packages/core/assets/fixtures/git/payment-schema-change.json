@@ -1,0 +1,14 @@
+{
+  "commit": {
+    "sha": "a1b2c3d4e5f6789012345678901234567890abcd",
+    "message": "feat(payment): add required billingAddress to PaymentRequest schema",
+    "author": "dev@shopflow.example.com"
+  },
+  "changes": [
+    {
+      "file": "payments",
+      "schema": "PaymentRequest",
+      "description": "Added billingAddress as required field on POST /payments"
+    }
+  ]
+}

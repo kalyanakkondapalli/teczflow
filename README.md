@@ -123,13 +123,22 @@ TeczFlow ingests API specs and operational signals into a **knowledge graph**, r
 
 ### Installation
 
+**From GitHub:**
 ```bash
-git clone https://github.com/mytecz/teczflow.git
+git clone https://github.com/kalyanakkondapalli/teczflow.git
 cd teczflow
 npm install
 npm run build
 npm test
 ```
+
+**From npm (after publish):**
+```bash
+npm install -g @mytecz/teczflow-cli @mytecz/teczflow-mcp-server
+teczflow workflow "checkout"
+```
+
+See [docs/NPM.md](docs/NPM.md) for publishing and MCP setup via npx.
 
 ### CLI Usage
 

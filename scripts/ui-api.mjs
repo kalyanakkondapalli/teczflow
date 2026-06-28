@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import { TeczFlowEngine } from '@teczflow/core';
+import { TeczFlowEngine } from '@mytecz/teczflow-core';
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 

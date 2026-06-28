@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { TeczFlowEngine, parseErrorDescription } from '@teczflow/core';
+import { TeczFlowEngine, parseErrorDescription } from '@mytecz/teczflow-core';
 import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 

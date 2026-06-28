@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { GraphEngine, ReasoningEngine } from '@teczflow/core';
+import { GraphEngine, ReasoningEngine } from '@mytecz/teczflow-core';
 
 describe('ReasoningEngine', () => {
   let graph: GraphEngine;

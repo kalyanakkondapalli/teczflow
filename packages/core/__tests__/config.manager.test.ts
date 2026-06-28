@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ConfigManager } from '@teczflow/core';
+import { ConfigManager } from '@mytecz/teczflow-core';
 import { resolve } from 'node:path';
 
 describe('ConfigManager', () => {

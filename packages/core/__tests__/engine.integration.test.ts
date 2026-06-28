@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { TeczFlowEngine } from '@teczflow/core';
+import { TeczFlowEngine } from '@mytecz/teczflow-core';
 import { resolve } from 'node:path';
 
 const configPath = resolve(process.cwd(), 'config.json');

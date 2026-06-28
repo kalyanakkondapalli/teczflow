@@ -1,0 +1,87 @@
+{
+  "logs": [
+    {
+      "timestamp": "2026-06-28T10:15:00Z",
+      "method": "POST",
+      "path": "/payments",
+      "status": 400,
+      "latencyMs": 145,
+      "message": "missing required field: billingAddress",
+      "service": "payment-service",
+      "requestId": "req-abc123"
+    },
+    {
+      "timestamp": "2026-06-28T10:16:00Z",
+      "method": "POST",
+      "path": "/payments",
+      "status": 400,
+      "latencyMs": 132,
+      "message": "missing required field: billingAddress",
+      "service": "payment-service",
+      "requestId": "req-abc124"
+    },
+    {
+      "timestamp": "2026-06-28T10:17:00Z",
+      "method": "POST",
+      "path": "/payments",
+      "status": 401,
+      "latencyMs": 45,
+      "message": "Invalid or missing bearer token",
+      "service": "payment-service",
+      "requestId": "req-abc125"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "api.errors.4xx",
+      "value": 47,
+      "unit": "count",
+      "timestamp": "2026-06-28T10:00:00Z",
+      "tags": { "endpoint": "POST /payments", "service": "payment-service" }
+    },
+    {
+      "name": "api.latency.p99",
+      "value": 320,
+      "unit": "ms",
+      "timestamp": "2026-06-28T10:00:00Z",
+      "tags": { "endpoint": "POST /payments" }
+    }
+  ],
+  "traces": [
+    {
+      "traceId": "trace-checkout-001",
+      "spanId": "span-1",
+      "serviceName": "cart-service",
+      "operationName": "POST /cart",
+      "httpMethod": "POST",
+      "httpRoute": "/cart",
+      "statusCode": 201,
+      "durationMs": 85,
+      "timestamp": "2026-06-28T09:00:00Z"
+    },
+    {
+      "traceId": "trace-checkout-001",
+      "spanId": "span-2",
+      "parentSpanId": "span-1",
+      "serviceName": "order-service",
+      "operationName": "POST /orders",
+      "httpMethod": "POST",
+      "httpRoute": "/orders",
+      "statusCode": 201,
+      "durationMs": 120,
+      "timestamp": "2026-06-28T09:00:01Z"
+    },
+    {
+      "traceId": "trace-checkout-001",
+      "spanId": "span-3",
+      "parentSpanId": "span-2",
+      "serviceName": "payment-service",
+      "operationName": "POST /payments",
+      "httpMethod": "POST",
+      "httpRoute": "/payments",
+      "statusCode": 400,
+      "durationMs": 145,
+      "timestamp": "2026-06-28T09:00:02Z"
+    }
+  ]
+}

@@ -119,15 +119,19 @@ export class ConfigManager {
 
 function findDefaultConfigPath(): string {
   const cwd = process.cwd();
+  const moduleDir = dirname(fileURLToPath(import.meta.url));
+  const bundledConfig = resolve(moduleDir, '../../assets/config.json');
   const candidates = [
+    process.env.TECZFLOW_CONFIG,
     resolve(cwd, 'config.json'),
-    resolve(cwd, '../../config.json'),
-    resolve(dirname(fileURLToPath(import.meta.url)), '../../../../config.json')
-  ];
+    bundledConfig,
+    resolve(moduleDir, '../../../../config.json')
+  ].filter((p): p is string => Boolean(p));
+
   for (const p of candidates) {
     if (existsSync(p)) return p;
   }
-  return resolve(cwd, 'config.json');
+  return existsSync(bundledConfig) ? bundledConfig : resolve(cwd, 'config.json');
 }
 
 function deepMerge(base: TeczFlowConfig, override: Partial<TeczFlowConfig>): TeczFlowConfig {

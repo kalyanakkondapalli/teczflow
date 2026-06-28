@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseErrorDescription } from '@teczflow/core';
+import { parseErrorDescription } from '@mytecz/teczflow-core';
 
 describe('parseErrorDescription', () => {
   it('parses method path and status', () => {

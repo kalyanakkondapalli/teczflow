@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@teczflow/core': resolve(__dirname, 'packages/core/src/index.ts')
+      '@mytecz/teczflow-core': resolve(__dirname, 'packages/core/src/index.ts')
     },
     extensionAlias: {
       '.js': ['.ts', '.js']

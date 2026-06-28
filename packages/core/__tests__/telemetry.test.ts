@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { TelemetryNormalizer, MockTelemetryAdapter } from '@teczflow/core';
+import { TelemetryNormalizer, MockTelemetryAdapter } from '@mytecz/teczflow-core';
 import { resolve } from 'node:path';
 
 describe('TelemetryNormalizer', () => {

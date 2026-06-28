@@ -8,12 +8,13 @@
     "ui"
   ],
   "scripts": {
-    "build": "npm run build -w @teczflow/core && npm run build -w @teczflow/mcp-server && npm run build -w @teczflow/cli && npm run build -w @teczflow/ui",
+    "build": "npm run build -w @mytecz/teczflow-core && npm run build -w @mytecz/teczflow-mcp-server && npm run build -w @mytecz/teczflow-cli && npm run build -w @teczflow/ui",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "start": "npm run start -w @teczflow/mcp-server",
-    "cli": "npm run start -w @teczflow/cli",
+    "start": "npm run start -w @mytecz/teczflow-mcp-server",
+    "cli": "npm run start -w @mytecz/teczflow-cli",
+    "publish:packages": "npm publish -w @mytecz/teczflow-core --access public && npm publish -w @mytecz/teczflow-mcp-server --access public && npm publish -w @mytecz/teczflow-cli --access public",
     "ui:dev": "npm run dev -w @teczflow/ui",
     "ui:build": "npm run build -w @teczflow/ui",
     "ui:api": "node scripts/ui-api.mjs"

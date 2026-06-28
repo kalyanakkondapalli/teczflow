@@ -1,8 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { TeczFlowEngine } from '@teczflow/core';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { TeczFlowEngine } from '@mytecz/teczflow-core';
+import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 
 export function createMcpServer(engine: TeczFlowEngine): McpServer {
@@ -206,15 +205,14 @@ export function createMcpServer(engine: TeczFlowEngine): McpServer {
 }
 
 export async function bootstrapEngine(): Promise<TeczFlowEngine> {
-  const configPath = findConfigPath();
-  const engine = new TeczFlowEngine(configPath);
+  const engine = new TeczFlowEngine();
   await loadDefaultFixtures(engine);
   await engine.refreshTelemetry();
   return engine;
 }
 
 async function loadDefaultFixtures(engine: TeczFlowEngine): Promise<void> {
-  const base = dirname(findConfigPath());
+  const base = engine.getConfigManager().getBaseDir();
   const fixtures = [
     { path: resolve(base, 'fixtures/shopflow.openapi.yaml'), format: 'openapi' as const },
     { path: resolve(base, 'fixtures/shopflow.postman.json'), format: 'postman' as const },
@@ -231,18 +229,4 @@ async function loadDefaultFixtures(engine: TeczFlowEngine): Promise<void> {
       }
     }
   }
-}
-
-function findConfigPath(): string {
-  const cwd = process.cwd();
-  const here = dirname(fileURLToPath(import.meta.url));
-  const candidates = [
-    resolve(cwd, 'config.json'),
-    resolve(here, '../../../config.json'),
-    resolve(here, '../../../../config.json')
-  ];
-  for (const p of candidates) {
-    if (existsSync(p)) return p;
-  }
-  return resolve(cwd, 'config.json');
 }
