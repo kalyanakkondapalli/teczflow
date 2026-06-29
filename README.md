@@ -283,7 +283,7 @@ const debug = engine.getServices().debug.explain('POST /payments', {}, { status:
 console.log(apis, workflow.conclusion, debug.conclusion);
 ```
 
-**Environment variable:** set `TECFLOW_CONFIG` to use a custom `config.json` path.
+**Environment variable:** set `TECZFLOW_CONFIG` to use a custom `config.json` path.
 
 ### CLI from source (repo clone)
 
