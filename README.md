@@ -3,15 +3,17 @@
 **By [MyTecz](https://www.npmjs.com/~mytecz)** · Open Source · MCP Compatible · SaaS Ready
 
 [![GitHub](https://img.shields.io/github/stars/kalyanakkondapalli/teczflow?style=social)](https://github.com/kalyanakkondapalli/teczflow)
-[![npm](https://img.shields.io/npm/v/@mytecz/teczflow-cli?label=cli)](https://www.npmjs.com/package/@mytecz/teczflow-cli)
+[![npm cli](https://img.shields.io/npm/v/@mytecz/teczflow-cli?label=cli)](https://www.npmjs.com/package/@mytecz/teczflow-cli)
+[![npm mcp](https://img.shields.io/npm/v/@mytecz/teczflow-mcp-server?label=mcp-server)](https://www.npmjs.com/package/@mytecz/teczflow-mcp-server)
+[![npm core](https://img.shields.io/npm/v/@mytecz/teczflow-core?label=core)](https://www.npmjs.com/package/@mytecz/teczflow-core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 | | Links |
 |---|---|
 | **GitHub** | https://github.com/kalyanakkondapalli/teczflow |
-| **npm CLI** | `@mytecz/teczflow-cli` |
-| **npm MCP** | `@mytecz/teczflow-mcp-server` |
-| **npm Core** | `@mytecz/teczflow-core` |
+| **npm CLI** | [`@mytecz/teczflow-cli`](https://www.npmjs.com/package/@mytecz/teczflow-cli) |
+| **npm MCP** | [`@mytecz/teczflow-mcp-server`](https://www.npmjs.com/package/@mytecz/teczflow-mcp-server) |
+| **npm Core** | [`@mytecz/teczflow-core`](https://www.npmjs.com/package/@mytecz/teczflow-core) |
 
 TeczFlow turns any API ecosystem into a **reasoning engine** for Claude and other MCP clients. It does not just call APIs — it **understands** them.
 
@@ -132,9 +134,48 @@ TeczFlow ingests API specs and operational signals into a **knowledge graph**, r
 
 - Node.js 20+
 
-### Installation
+---
 
-**From GitHub:**
+## npm Packages
+
+TeczFlow is published on npm under the **@mytecz** scope by [MyTecz](https://www.npmjs.com/~mytecz).
+
+| Package | Description | Install |
+|---------|-------------|---------|
+| [`@mytecz/teczflow-cli`](https://www.npmjs.com/package/@mytecz/teczflow-cli) | Command-line tool (`teczflow`) | `npm install -g @mytecz/teczflow-cli` |
+| [`@mytecz/teczflow-mcp-server`](https://www.npmjs.com/package/@mytecz/teczflow-mcp-server) | MCP server for Claude / Cursor (`teczflow-mcp`) | `npm install -g @mytecz/teczflow-mcp-server` |
+| [`@mytecz/teczflow-core`](https://www.npmjs.com/package/@mytecz/teczflow-core) | Graph, reasoning, adapters (library) | `npm install @mytecz/teczflow-core` |
+
+Bundled **ShopFlow sample fixtures** ship with `@mytecz/teczflow-core` — no repo clone required for a first run.
+
+---
+
+## Installation
+
+### Option A — npm (recommended)
+
+**CLI + MCP (global):**
+```bash
+npm install -g @mytecz/teczflow-cli @mytecz/teczflow-mcp-server
+```
+
+**CLI only:**
+```bash
+npm install -g @mytecz/teczflow-cli
+```
+
+**Core library (in your project):**
+```bash
+npm install @mytecz/teczflow-core
+```
+
+**Run MCP without global install (npx):**
+```bash
+npx @mytecz/teczflow-mcp-server
+```
+
+### Option B — From source (contributors)
+
 ```bash
 git clone https://github.com/kalyanakkondapalli/teczflow.git
 cd teczflow
@@ -143,34 +184,118 @@ npm run build
 npm test
 ```
 
-**From npm (after publish):**
+See [docs/NPM.md](docs/NPM.md) for publishing and release workflow.
+
+---
+
+## Usage
+
+### CLI (npm global)
+
+After `npm install -g @mytecz/teczflow-cli`:
+
 ```bash
-npm install -g @mytecz/teczflow-cli @mytecz/teczflow-mcp-server
-teczflow workflow "checkout"
+# Load your OpenAPI or Postman spec
+teczflow load ./path/to/openapi.yaml
+
+# Search APIs with natural language
+teczflow query "refund order flow"
+
+# Debug an API error
+teczflow debug "POST /payments failed 400"
+
+# Infer a business workflow
+teczflow workflow "checkout process"
+
+# View API knowledge graph
+teczflow graph "ShopFlow"
 ```
 
-See [docs/NPM.md](docs/NPM.md) for publishing and MCP setup via npx.
+**Try the bundled sample** (fixtures included in the core package):
+```bash
+teczflow workflow "checkout"
+teczflow debug "POST /payments failed 400"
+teczflow query "invoice"
+```
 
-### CLI Usage
+**Optional flags:**
+```bash
+teczflow --config ./config.json --tenant acme workflow "checkout"
+```
+
+Full reference: [docs/CLI.md](docs/CLI.md)
+
+### MCP Server (Claude Desktop)
+
+**Recommended — npx (no paths to configure):**
+
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "teczflow": {
+      "command": "npx",
+      "args": ["-y", "@mytecz/teczflow-mcp-server"]
+    }
+  }
+}
+```
+
+**Or global install:**
+
+```json
+{
+  "mcpServers": {
+    "teczflow": {
+      "command": "teczflow-mcp"
+    }
+  }
+}
+```
+
+Restart Claude Desktop, then try:
+
+- *"Use TeczFlow to list all APIs"*
+- *"Why is POST /payments returning 400?"*
+- *"Show the checkout workflow"*
+- *"What breaks if the payment schema changes?"*
+
+Cursor and troubleshooting: [docs/MCP_SETUP.md](docs/MCP_SETUP.md)
+
+### Core library (Node.js / TypeScript)
+
+```typescript
+import { TeczFlowEngine } from '@mytecz/teczflow-core';
+
+const engine = new TeczFlowEngine();
+
+await engine.load({
+  type: 'file',
+  path: './openapi.yaml',
+  format: 'openapi'
+});
+
+const apis = engine.getServices().discovery.listApis();
+const workflow = engine.getServices().workflow.infer('checkout');
+const debug = engine.getServices().debug.explain('POST /payments', {}, { status: 400 });
+
+console.log(apis, workflow.conclusion, debug.conclusion);
+```
+
+**Environment variable:** set `TECFLOW_CONFIG` to use a custom `config.json` path.
+
+### CLI from source (repo clone)
 
 ```bash
-# Load a spec
 npm run cli -- load fixtures/shopflow.openapi.yaml
-
-# Search APIs
 npm run cli -- query "refund order flow"
-
-# Debug an error
 npm run cli -- debug "POST /payments failed 400"
-
-# Infer workflow
 npm run cli -- workflow "checkout process"
-
-# View graph
 npm run cli -- graph "ShopFlow"
 ```
 
-### MCP Server (Claude Desktop)
+### MCP from source (repo clone)
 
 Add to `claude_desktop_config.json`:
 
@@ -179,32 +304,25 @@ Add to `claude_desktop_config.json`:
   "mcpServers": {
     "teczflow": {
       "command": "node",
-      "args": ["C:/Development/teczflow/packages/mcp-server/dist/index.js"],
-      "cwd": "C:/Development/teczflow"
+      "args": ["ABSOLUTE/PATH/teczflow/packages/mcp-server/dist/index.js"],
+      "cwd": "ABSOLUTE/PATH/teczflow"
     }
   }
 }
 ```
 
-Start the server:
+Or run locally:
 
 ```bash
 npm start
 ```
 
-See [docs/MCP_SETUP.md](docs/MCP_SETUP.md) for Cursor and troubleshooting.
-
-### Dashboard UI
+### Dashboard UI (source only)
 
 ```bash
-# Terminal 1 — API backend
-npm run ui:api
-
-# Terminal 2 — React dashboard
-npm run ui:dev
+npm run ui:api    # Terminal 1 — API backend
+npm run ui:dev    # Terminal 2 — http://localhost:5173
 ```
-
-Open http://localhost:5173
 
 ---
 
@@ -238,6 +356,7 @@ See [docs/CONFIGURATION.md](docs/CONFIGURATION.md) and [docs/TELEMETRY.md](docs/
 | Guide | Description |
 |-------|-------------|
 | [Getting Started](docs/GETTING_STARTED.md) | Step-by-step setup |
+| [npm Packages](docs/NPM.md) | Install, publish, release workflow |
 | [MCP Setup](docs/MCP_SETUP.md) | Claude Desktop & Cursor |
 | [CLI Reference](docs/CLI.md) | All CLI commands |
 | [Configuration](docs/CONFIGURATION.md) | config.json reference |
