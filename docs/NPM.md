@@ -10,6 +10,46 @@ TeczFlow is published under the **@mytecz** scope (your npm account).
 | `@mytecz/teczflow-cli` | CLI | `teczflow` |
 | `@mytecz/teczflow-mcp-server` | MCP server | `teczflow-mcp` |
 
+## Create the correct npm token (required for 2FA accounts)
+
+Your npm account has **2FA enabled**. A normal token is not enough — you need a **Granular Access Token** with publish + bypass 2FA.
+
+1. Go to https://www.npmjs.com/settings/mytecz/tokens/granular-access-tokens/new
+2. Set:
+   - **Token name:** `teczflow-publish`
+   - **Expiration:** 90 days (or your preference)
+   - **Packages and scopes:** Read and Write — select `@mytecz/*` or all packages
+   - **Organizations:** (none unless applicable)
+3. **Important:** Enable **“Bypass two-factor authentication for automation”**
+4. Generate and copy the token (starts with `npm_`)
+5. **Never paste tokens in chat** — add directly to GitHub Secrets
+
+### Add to GitHub (for Actions)
+
+Repo → **Settings → Secrets and variables → Actions → New repository secret**
+
+| Name | Value |
+|------|-------|
+| `NPM_TOKEN` | your granular token |
+
+Then run: **Actions → Publish to npm → Run workflow**
+
+### Publish locally with token
+
+```bash
+# PowerShell — do NOT save token in files
+$env:NODE_AUTH_TOKEN="npm_YOUR_TOKEN_HERE"
+npm publish -w @mytecz/teczflow-core --access public
+npm publish -w @mytecz/teczflow-mcp-server --access public
+npm publish -w @mytecz/teczflow-cli --access public
+```
+
+### Or publish with OTP (one-time code from authenticator)
+
+```bash
+npm publish -w @mytecz/teczflow-core --access public --otp=123456
+```
+
 ## Publish via GitHub Actions (recommended)
 
 1. Create an npm **Granular Access Token** with **Publish** permission at https://www.npmjs.com/settings/mytecz/tokens
